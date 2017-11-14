@@ -1,0 +1,38 @@
+%svg#cpu_usage_avarage{style: "height:200px"}
+
+:javascript
+
+  // render the statistic
+  function show_statistic() {
+
+    $.get( "#{plugin('metrics').server_statistics_path()}", {
+      server_name: "#{@instance.name}"
+    },function(data,status,xhr) {
+      
+      nv.addGraph(function() {
+
+        // config x and y Axis
+        var chart = nv.models.lineChart()
+                      .x(function(d) { return d[0] })
+                      .y(function(d) { return parseInt(d[1]) }); 
+         // https://stackoverflow.com/questions/19459687/understanding-nvd3-x-axis-date-format
+         chart.xAxis
+            .tickFormat(function(d) {
+                return d3.time.format('%H:%M')(new Date(d*1000))
+              });
+
+        // create graph
+        d3.select('#cpu_usage_avarage')
+          .datum(data['cpu_usage_avarage'])
+          .transition().duration(500)
+          .call(chart)
+          ;
+      
+        nv.utils.windowResize(chart.update);
+        return chart;
+      });
+
+    }).error (function(xhr) {
+      $('#statistic').empty();
+    });
+  }

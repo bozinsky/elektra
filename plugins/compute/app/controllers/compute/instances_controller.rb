@@ -59,6 +59,7 @@ module Compute
 
     def show
       @instance = services_ng.compute.find_server(params[:id])
+      
       return if @instance.blank?
 
       @instance_security_groups = @instance.security_groups_details.collect do |sg|

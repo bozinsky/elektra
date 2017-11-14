@@ -16,6 +16,8 @@
       %li{role: "presentation"}= link_to 'Key Pairs', '#keypairs', aria: {controls:"keypairs"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Metadata', '#metadata', aria: {controls:"metadata"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Volumes Attached', '#volumes', aria: {controls:"volumes"}, role: "tab", data: {toggle:"tab"}
+      %li{role: "presentation"}= link_to 'Metrics', '#metric', aria: {controls:"metric"}, role: "tab", data: {toggle:"tab"}
+      
       - if current_user.is_allowed?("compute:all_projects")
         %li{ role: 'presentation' }= link_to 'Actions', '#actions', aria: { controls: 'actions' }, role: 'tab', data: { toggle: 'tab' }
 
@@ -135,6 +137,9 @@
                 %tr
                   %td= vol.displayName || vol.name
                   %td= vol.attachments.first['device']
+                  
+      .tab-pane{role:"tabpanel", id:"metric"}
+        = render partial: "metrics"
 
       - if current_user.is_allowed?("compute:all_projects")
         .tab-pane{role: 'tabpanel', id: 'actions'}
