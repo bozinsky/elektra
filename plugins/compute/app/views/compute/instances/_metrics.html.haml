@@ -1,8 +1,9 @@
 %svg#cpu_usage_average{style: "height:200px; width:868px"}
+%svg#mem_usage_average{style: "height:200px; width:868px"}
 
 :javascript
 
-  var metric_ids = ['cpu_usage_average'];
+  var metric_ids = ['cpu_usage_average','mem_usage_average'];
   $(function(){
     $('a[aria-controls=metric]').click(function(){
       // cleanup

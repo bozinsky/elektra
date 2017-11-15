@@ -5,7 +5,7 @@ compute.clear_graph = function(ID) {
     // http://stackoverflow.com/questions/22452112/nvd3-clear-svg-before-loading-new-chart
     // http://stackoverflow.com/questions/28560835/issue-with-useinteractiveguideline-in-nvd3-js
     // https://github.com/Caged/d3-tip/issues/133
-    d3.selectAll("svg > *").remove();
+    //d3.selectAll("svg > *").remove();
     d3.select("#"+ID)
       .on("mousemove", null)
       .on("mouseout", null)

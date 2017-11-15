@@ -14,13 +14,17 @@ module Metrics
     end
     
     def server_statistics
-      cpu_usage_avarage = services_ng.metrics.cpu_usage_avarage(params.require('server_name'))
-      
+      cpu_usage_avarage = services_ng.metrics.get_metrics_for("vcenter_cpu_usage_average",params.require('server_name'))
+      mem_usage_avarage = services_ng.metrics.get_metrics_for("vcenter_mem_usage_average",params.require('server_name'))
       
       render json: { 
         cpu_usage_average: [{
-          key: 'cpu load',
+          key: 'cpu usage',
           values: cpu_usage_avarage.values
+        }],
+        mem_usage_average: [{
+          key: 'memory usage',
+          values: mem_usage_avarage.values
         }]
       }
     end
