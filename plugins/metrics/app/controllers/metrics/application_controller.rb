@@ -16,9 +16,10 @@ module Metrics
     def server_statistics
       cpu_usage_avarage = services_ng.metrics.cpu_usage_avarage(params.require('server_name'))
       
+      
       render json: { 
-        cpu_usage_avarage: [{
-          key: cpu_usage_avarage.metric['vmware_name'],
+        cpu_usage_average: [{
+          key: 'cpu load',
           values: cpu_usage_avarage.values
         }]
       }

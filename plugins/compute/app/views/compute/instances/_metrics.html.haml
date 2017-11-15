@@ -1,38 +1,32 @@
-%svg#cpu_usage_avarage{style: "height:200px"}
+%svg#cpu_usage_average{style: "height:200px; width:868px"}
 
 :javascript
 
-  // render the statistic
-  function show_statistic() {
-
-    $.get( "#{plugin('metrics').server_statistics_path()}", {
-      server_name: "#{@instance.name}"
-    },function(data,status,xhr) {
-      
-      nv.addGraph(function() {
-
-        // config x and y Axis
-        var chart = nv.models.lineChart()
-                      .x(function(d) { return d[0] })
-                      .y(function(d) { return parseInt(d[1]) }); 
-         // https://stackoverflow.com/questions/19459687/understanding-nvd3-x-axis-date-format
-         chart.xAxis
-            .tickFormat(function(d) {
-                return d3.time.format('%H:%M')(new Date(d*1000))
-              });
-
-        // create graph
-        d3.select('#cpu_usage_avarage')
-          .datum(data['cpu_usage_avarage'])
-          .transition().duration(500)
-          .call(chart)
-          ;
-      
-        nv.utils.windowResize(chart.update);
-        return chart;
+  var metric_ids = ['cpu_usage_average'];
+  $(function(){
+    $('a[aria-controls=metric]').click(function(){
+      // cleanup
+      $.each(metric_ids, function( index, metric_id ) {
+        compute.clear_graph(metric_id);
       });
-
-    }).error (function(xhr) {
-      $('#statistic').empty();
+      $('#metric').addClass('loading-spinner');
+      $.get( "#{plugin('metrics').server_statistics_path()}", {
+        server_name: "#{@instance.name}"
+      },function(data,status,xhr) {
+        $('#metric').removeClass('loading-spinner');
+        // render metrics
+        $.each(metric_ids, function( index, metric_id ) {
+          compute.render_graph(metric_id,data[metric_id]);
+        });
+      }).error (function(xhr) {
+        $('#metric').removeClass('loading-spinner')
+        // cleanup and render no data message
+        $.each(metric_ids, function( index, metric_id ) {
+          compute.clear_graph(metric_id);
+          compute.no_data(metric_id);
+        });
+      });
     });
-  }
+  });
+
+

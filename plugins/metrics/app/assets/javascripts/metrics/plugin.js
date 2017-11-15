@@ -35,19 +35,3 @@ $(document).ready(function(){
     
 // Call function from other files inside this plugin using the variable metrics
 //metrics.anyFunction()
-
-metrics.clear_graph = function(ID) {
-    // cleanup left overs
-    // http://stackoverflow.com/questions/22452112/nvd3-clear-svg-before-loading-new-chart
-    // http://stackoverflow.com/questions/28560835/issue-with-useinteractiveguideline-in-nvd3-js
-    // https://github.com/Caged/d3-tip/issues/133
-    d3.selectAll("svg > *").remove();
-    d3.select("#"+ID)
-      .on("mousemove", null)
-      .on("mouseout", null)
-      .on("dblclick", null)
-      .on("click", null);
-    d3.select(".nvtooltip").remove();
-    
-    $('#'+ID).empty();
-};

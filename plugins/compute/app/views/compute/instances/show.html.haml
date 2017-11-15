@@ -9,13 +9,13 @@
 
   - else
     %ul.nav.nav-tabs
-      %li.active{role: "presentation"}= link_to 'Information', '#information', aria: {controls:"information"}, role: "tab", data: {toggle:"tab"}
+      %li.active{role: "presentation"}= link_to 'Info', '#information', aria: {controls:"information"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Specs', '#specs', aria: {controls:"specs"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'IP Addresses', '#ip_addresses', aria: {controls:"ip_addresses"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Security Groups', '#sec_groups', aria: {controls:"security_groups"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Key Pairs', '#keypairs', aria: {controls:"keypairs"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Metadata', '#metadata', aria: {controls:"metadata"}, role: "tab", data: {toggle:"tab"}
-      %li{role: "presentation"}= link_to 'Volumes Attached', '#volumes', aria: {controls:"volumes"}, role: "tab", data: {toggle:"tab"}
+      %li{role: "presentation"}= link_to 'Volumes', '#volumes', aria: {controls:"volumes"}, role: "tab", data: {toggle:"tab"}
       %li{role: "presentation"}= link_to 'Metrics', '#metric', aria: {controls:"metric"}, role: "tab", data: {toggle:"tab"}
       
       - if current_user.is_allowed?("compute:all_projects")
